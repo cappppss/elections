@@ -4,12 +4,10 @@ from random import randint
 def genererUnVotant(n):
     liste_pref = []
 
-    for i in range(n):
+    while len(liste_pref) < n:
         nombre_candidat = randint(0, n - 1)
-        for i in range(1, n):
-            if nombre_candidat not in liste_pref:
-                liste_pref.append(nombre_candidat)
-            nombre_candidat = randint(0, n - 1)
+        if nombre_candidat not in liste_pref:
+            liste_pref.append(nombre_candidat)
 
     return liste_pref
 
