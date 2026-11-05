@@ -48,7 +48,7 @@ def gagnant(voix):
             maxi = voix[i]
             max_index = i
 
-    return max_index + 1  # pour éviter d'avoir le "candidat numéro 0"
+    return max_index + 1  # pour éviter d'avoir un "candidat numéro 0"
 
 
 def scrutinMaj1Tour(prefs, cands):
@@ -56,3 +56,33 @@ def scrutinMaj1Tour(prefs, cands):
     cand_gagnant = gagnant(compte_voix)
 
     return f"Gagnant : {cands[cand_gagnant - 1]} avec {compte_voix[cand_gagnant - 1]} voix"  # on fait cand_gagnant - 1 pour que l'index corresponde au bon candidat
+
+
+def compterVoixSel(prefs, qualif):
+    voix_obtenues = [0] * len(prefs[0])
+
+    for votes in prefs:
+        trouve = False
+
+        for candidat in votes:
+            if candidat in qualif and not trouve:
+                voix_obtenues[candidat] += 1
+                trouve = True
+
+    return voix_obtenues
+
+
+def deuxPremiers(prefs):
+    maxi1 = prefs[0]
+    maxi2 = prefs[1]
+    index1 = 0
+    index2 = 1
+
+    for i in range(len(prefs)):
+        if prefs[i] >= maxi1:
+            index2 = index1
+            index1 = i
+            maxi2 = maxi1
+            maxi1 = prefs[i]
+
+    return index2, index1
