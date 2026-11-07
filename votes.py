@@ -73,16 +73,31 @@ def compterVoixSel(prefs, qualif):
 
 
 def deuxPremiers(prefs):
-    maxi1 = prefs[0]
-    maxi2 = prefs[1]
+    maxi1 = prefs[0][0]
+    maxi2 = prefs[0][1]
     index1 = 0
-    index2 = 1
+    index2 = 0
 
     for i in range(len(prefs)):
-        if prefs[i] >= maxi1:
-            index2 = index1
-            index1 = i
-            maxi2 = maxi1
-            maxi1 = prefs[i]
+        for j in range(len(prefs[i])):
+            if prefs[i][j] >= maxi1:
+                index2 = index1
+                index1 = j
+                maxi2 = maxi1
+                maxi1 = prefs[i][j]
 
     return index2, index1
+
+
+def scrutinMaj2Tours(prefs, cands):
+    deux_premiers = list(deuxPremiers(prefs))
+    print("deux premiers:", deux_premiers)
+    print(
+        "Premier :", cands[deux_premiers[1]], "\nDeuxième : ", cands[deux_premiers[0]]
+    )
+
+    compter_voix = compterVoixSel(prefs, deux_premiers)
+    print("compter voix :", compter_voix)
+
+    gagne = cands[gagnant(compter_voix) - 1]
+    print("gagnant:", gagne)
