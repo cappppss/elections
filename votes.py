@@ -90,14 +90,29 @@ def deuxPremiers(prefs):
 
 
 def scrutinMaj2Tours(prefs, cands):
+    voix_premier_tour = compterVoix(prefs)
     deux_premiers = list(deuxPremiers(prefs))
-    print("deux premiers:", deux_premiers)
+
+    candidat1, candidat2 = deux_premiers
+
+    if voix_premier_tour[candidat1] < voix_premier_tour[candidat2]:
+        temp = candidat1
+        candidat1 = candidat2
+        candidat2 = temp
+
+    print("Premier tour :")
+    print("\nPremier :", cands[candidat1], "avec", voix_premier_tour[candidat1], "voix")
+    print("Deuxième : ", cands[candidat2], "avec", voix_premier_tour[candidat2], "voix")
+
+    voix_deuxieme_tour = compterVoixSel(prefs, deux_premiers)
+
+    gagnant_index = gagnant(voix_deuxieme_tour) - 1
+    gagne = cands[gagnant_index]
+    print("\nDeuxième tour :")
     print(
-        "Premier :", cands[deux_premiers[1]], "\nDeuxième : ", cands[deux_premiers[0]]
+        "\nGagnant :",
+        gagne,
+        "avec",
+        voix_deuxieme_tour[gagnant_index],
+        "voix",
     )
-
-    compter_voix = compterVoixSel(prefs, deux_premiers)
-    print("compter voix :", compter_voix)
-
-    gagne = cands[gagnant(compter_voix) - 1]
-    print("gagnant:", gagne)
