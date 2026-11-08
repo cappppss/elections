@@ -93,7 +93,8 @@ def scrutinMaj2Tours(prefs, cands):
     voix_premier_tour = compterVoix(prefs)
     deux_premiers = list(deuxPremiers(prefs))
 
-    candidat1, candidat2 = deux_premiers
+    candidat1 = deux_premiers[0]
+    candidat2 = deux_premiers[1]
 
     if voix_premier_tour[candidat1] < voix_premier_tour[candidat2]:
         temp = candidat1
@@ -101,7 +102,7 @@ def scrutinMaj2Tours(prefs, cands):
         candidat2 = temp
 
     print("Premier tour :")
-    print("\nPremier :", cands[candidat1], "avec", voix_premier_tour[candidat1], "voix")
+    print("Premier :", cands[candidat1], "avec", voix_premier_tour[candidat1], "voix")
     print("Deuxième : ", cands[candidat2], "avec", voix_premier_tour[candidat2], "voix")
 
     voix_deuxieme_tour = compterVoixSel(prefs, deux_premiers)
@@ -109,10 +110,21 @@ def scrutinMaj2Tours(prefs, cands):
     gagnant_index = gagnant(voix_deuxieme_tour) - 1
     gagne = cands[gagnant_index]
     print("\nDeuxième tour :")
-    print(
-        "\nGagnant :",
-        gagne,
-        "avec",
-        voix_deuxieme_tour[gagnant_index],
-        "voix",
-    )
+
+    return f"Gagnant : {gagne} avec {voix_deuxieme_tour[gagnant_index]} voix"
+
+
+def perdant(voix):
+    mini_index = 0
+    mini = voix[0]
+    liste_perdants = []
+
+    for i in range(len(voix)):
+        if voix[i] < mini:
+            mini = voix[i]
+            mini_index = i
+
+        elif voix[i] == mini:
+            liste_perdants.append(i)
+
+    return liste_perdants
