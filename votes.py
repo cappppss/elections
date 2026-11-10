@@ -128,3 +128,18 @@ def perdant(voix):
             liste_perdants.append(i)
 
     return liste_perdants
+
+
+def voteAlternatif(prefs, cands, disp=False):
+
+    compte_voix = compterVoix(prefs)
+
+    while len(compte_voix) >= 1:
+        liste_perdants = perdant(compte_voix)
+
+        for i in liste_perdants:
+            compte_voix.remove(i)
+
+        compte_voix = compterVoix(prefs)
+
+    return compte_voix
