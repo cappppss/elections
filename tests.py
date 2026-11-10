@@ -12,8 +12,10 @@ def main():
     # print(compterVoixSel(liste_votants, [1, 4]))
     # print(deuxPremiers([250, 100, 250, 70, 250]))
     # print(scrutinMaj2Tours(liste_votants, candidats))
+    #
+    #
 
-    print(compterVoix(liste_votants))
+    print(voteAlternatif(liste_votants, candidats))
 
 
 if __name__ == "__main__":
