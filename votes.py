@@ -115,14 +115,13 @@ def scrutinMaj2Tours(prefs, cands):
 
 
 def perdant(voix):
-    mini_index = 0
     mini = voix[0]
     liste_perdants = []
 
     for i in range(len(voix)):
         if voix[i] < mini:
             mini = voix[i]
-            mini_index = i
+            liste_perdants = [i]
 
         elif voix[i] == mini:
             liste_perdants.append(i)
@@ -132,14 +131,28 @@ def perdant(voix):
 
 def voteAlternatif(prefs, cands, disp=False):
 
-    compte_voix = compterVoix(prefs)
-
-    while len(compte_voix) >= 1:
-        liste_perdants = perdant(compte_voix)
-
-        for i in liste_perdants:
-            compte_voix.remove(i)
-
+    if not disp:
         compte_voix = compterVoix(prefs)
 
-    return compte_voix
+        while len(compte_voix) > 1:
+            liste_perdants = perdant(compte_voix)
+            compte_voix.remove(compte_voix[liste_perdants[0]])
+            cands.remove(cands[liste_perdants[0]])
+
+        return f"Le gagant est {cands[0]} avec {compte_voix[0]} voix"
+
+    else:
+        compte_voix = compterVoix(prefs)
+
+        while len(compte_voix) > 1:
+            liste_perdants = perdant(compte_voix)
+            print(
+                cands[liste_perdants[0]],
+                "éliminé avec",
+                compte_voix[liste_perdants[0]],
+                "voix",
+            )
+            compte_voix.remove(compte_voix[liste_perdants[0]])
+            cands.remove(cands[liste_perdants[0]])
+
+        return f"Le gagant est {cands[0]} avec {compte_voix[0]} voix"

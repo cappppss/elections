@@ -15,7 +15,7 @@ def main():
     #
     #
 
-    print(voteAlternatif(liste_votants, candidats))
+    print(voteAlternatif(liste_votants, candidats, True))
 
 
 if __name__ == "__main__":
