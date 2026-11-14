@@ -128,36 +128,6 @@ def perdant(voix):
 
     return liste_perdants
 
-    # def voteAlternatif(prefs, cands, disp=False):
-    #
-    #    if not disp:
-    #        compte_voix = compterVoix(prefs)
-    #
-    #        while len(compte_voix) > 1:
-    #            liste_perdants = perdant(compte_voix)
-    #            compte_voix.remove(compte_voix[liste_perdants[0]])
-    #            cands.remove(cands[liste_perdants[0]])
-    #
-    #        return f"Le gagant est {cands[0]} avec {compte_voix[0]} voix"
-    #
-    #    else:
-    #        compte_voix = compterVoix(prefs)
-    #
-    #        while len(compte_voix) > 1:
-    #            liste_perdants = perdant(compte_voix)
-    #            print(
-    #                cands[liste_perdants[0]],
-    #                "éliminé avec",
-    #                compte_voix[liste_perdants[0]],
-    #                "voix",
-    #            )
-    #            compte_voix.remove(compte_voix[liste_perdants[0]])
-    #            cands.remove(cands[liste_perdants[0]])
-    #
-    #        return f"Le gagant est {cands[0]} avec {compte_voix[0]} voix"
-    #
-    #
-
 
 def voteAlternatif(prefs, cands, disp=False):
     qualif = []
