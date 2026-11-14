@@ -128,31 +128,74 @@ def perdant(voix):
 
     return liste_perdants
 
+    # def voteAlternatif(prefs, cands, disp=False):
+    #
+    #    if not disp:
+    #        compte_voix = compterVoix(prefs)
+    #
+    #        while len(compte_voix) > 1:
+    #            liste_perdants = perdant(compte_voix)
+    #            compte_voix.remove(compte_voix[liste_perdants[0]])
+    #            cands.remove(cands[liste_perdants[0]])
+    #
+    #        return f"Le gagant est {cands[0]} avec {compte_voix[0]} voix"
+    #
+    #    else:
+    #        compte_voix = compterVoix(prefs)
+    #
+    #        while len(compte_voix) > 1:
+    #            liste_perdants = perdant(compte_voix)
+    #            print(
+    #                cands[liste_perdants[0]],
+    #                "éliminé avec",
+    #                compte_voix[liste_perdants[0]],
+    #                "voix",
+    #            )
+    #            compte_voix.remove(compte_voix[liste_perdants[0]])
+    #            cands.remove(cands[liste_perdants[0]])
+    #
+    #        return f"Le gagant est {cands[0]} avec {compte_voix[0]} voix"
+    #
+    #
+
 
 def voteAlternatif(prefs, cands, disp=False):
+    qualif = []
+    compte_voix = []
+    for i in range(len(cands)):
+        qualif.append(i)
 
-    if not disp:
-        compte_voix = compterVoix(prefs)
+    if disp:
+        while len(qualif) > 1:
+            compte_voix = compterVoixSel(prefs, qualif)
+            compte_voix_temp = []  # Cette liste temporaire permet à la fonction "perdant" de fonctionner sans la modifier
+            # parce qu'on se retrouvait avec des 0 dans la liste des votes
 
-        while len(compte_voix) > 1:
-            liste_perdants = perdant(compte_voix)
-            compte_voix.remove(compte_voix[liste_perdants[0]])
-            cands.remove(cands[liste_perdants[0]])
+            for i in qualif:
+                compte_voix_temp.append(compte_voix[i])
 
-        return f"Le gagant est {cands[0]} avec {compte_voix[0]} voix"
+            cand_perdant = perdant(compte_voix_temp)
 
-    else:
-        compte_voix = compterVoix(prefs)
-
-        while len(compte_voix) > 1:
-            liste_perdants = perdant(compte_voix)
             print(
-                cands[liste_perdants[0]],
+                cands[qualif[cand_perdant[0]]],
                 "éliminé avec",
-                compte_voix[liste_perdants[0]],
+                compte_voix[qualif[cand_perdant[0]]],
                 "voix",
             )
-            compte_voix.remove(compte_voix[liste_perdants[0]])
-            cands.remove(cands[liste_perdants[0]])
+            qualif.remove(qualif[cand_perdant[0]])
 
-        return f"Le gagant est {cands[0]} avec {compte_voix[0]} voix"
+        return f"Le gagnant est {cands[qualif[0]]} avec {compte_voix[qualif[0]]} voix"
+
+    else:
+        while len(qualif) > 1:
+            compte_voix = compterVoixSel(prefs, qualif)
+            compte_voix_temp = []
+
+            for i in qualif:
+                compte_voix_temp.append(compte_voix[i])
+
+            cand_perdant = perdant(compte_voix_temp)
+
+            qualif.remove(qualif[cand_perdant[0]])
+
+        return f"Le gagnant est {cands[qualif[0]]} avec {compte_voix[qualif[0]]} voix"

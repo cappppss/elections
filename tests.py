@@ -12,8 +12,6 @@ def main():
     # print(compterVoixSel(liste_votants, [1, 4]))
     # print(deuxPremiers([250, 100, 250, 70, 250]))
     # print(scrutinMaj2Tours(liste_votants, candidats))
-    #
-    #
 
     print(voteAlternatif(liste_votants, candidats, True))
 
