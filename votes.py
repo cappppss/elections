@@ -55,7 +55,10 @@ def scrutinMaj1Tour(prefs, cands):
     compte_voix = compterVoix(prefs)
     cand_gagnant = gagnant(compte_voix)
 
-    return f"Gagnant : {cands[cand_gagnant - 1]} avec {compte_voix[cand_gagnant - 1]} voix"  # on fait cand_gagnant - 1 pour que l'index corresponde au bon candidat
+    print(
+        f"Gagnant : {cands[cand_gagnant - 1]} avec {compte_voix[cand_gagnant - 1]} voix"
+    )  # on fait cand_gagnant - 1 pour que l'index corresponde au bon candidat
+    return (cands[cand_gagnant - 1], compte_voix[cand_gagnant - 1])
 
 
 def compterVoixSel(prefs, qualif):
@@ -110,8 +113,9 @@ def scrutinMaj2Tours(prefs, cands):
     gagnant_index = gagnant(voix_deuxieme_tour) - 1
     gagne = cands[gagnant_index]
     print("\nDeuxième tour :")
+    print(f"Gagnant : {gagne} avec {voix_deuxieme_tour[gagnant_index]} voix")
 
-    return f"Gagnant : {gagne} avec {voix_deuxieme_tour[gagnant_index]} voix"
+    return (gagne, voix_deuxieme_tour[gagnant_index])
 
 
 def perdant(voix):
@@ -154,7 +158,9 @@ def voteAlternatif(prefs, cands, disp=False):
             )
             qualif.remove(qualif[cand_perdant[0]])
 
-        return f"Le gagnant est {cands[qualif[0]]} avec {compte_voix[qualif[0]]} voix"
+        print(f"Le gagnant est {cands[qualif[0]]} avec {compte_voix[qualif[0]]} voix")
+
+        return (cands[qualif[0]], compte_voix[qualif[0]])
 
     else:
         while len(qualif) > 1:
@@ -168,4 +174,28 @@ def voteAlternatif(prefs, cands, disp=False):
 
             qualif.remove(qualif[cand_perdant[0]])
 
-        return f"Le gagnant est {cands[qualif[0]]} avec {compte_voix[qualif[0]]} voix"
+        print(f"Le gagnant est {cands[qualif[0]]} avec {compte_voix[qualif[0]]} voix")
+
+        return (cands[qualif[0]], compte_voix[qualif[0]])
+
+
+def compterPoints(prefs):
+    liste_points = [0] * len(prefs[0])
+
+    for pref in range(len(prefs)):
+        compteur = 0
+        for votes in range(len(prefs[pref])):
+            liste_points[prefs[pref][votes]] += len(prefs[0]) - compteur
+            compteur += 1
+
+    return liste_points
+
+
+def voteBorda(prefs, cands):
+    compte_points = compterPoints(prefs)
+    cand_gagnant = gagnant(compte_points)
+
+    print(
+        f"Gagnant {cands[cand_gagnant - 1]} avec {compte_points[cand_gagnant - 1]} voix"
+    )
+    return (cands[cand_gagnant - 1], compte_points[cand_gagnant - 1])
