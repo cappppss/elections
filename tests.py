@@ -41,22 +41,6 @@ def main():
 
     print("nombre moyen de gagants distincts:", somme_gagnants_diff / nb_test)
 
-    # liste_votants = genererListeVotants(len(candidats), 600)
-    # print("Scrutin Maj 1 Tour")
-    # scrutinMaj1Tour(liste_votants, candidats)
-    # print("\n")
-
-    # print("Scrutin Maj 2 Tours")
-    # scrutinMaj2Tours(liste_votants, candidats)
-    # print("\n")
-
-    # print("Vote Alternatif")
-    # voteAlternatif(liste_votants, candidats, True)
-    # print("\n")
-
-    # print("Vote Borda")
-    # voteBorda(liste_votants, candidats)
-
 
 if __name__ == "__main__":
     main()
